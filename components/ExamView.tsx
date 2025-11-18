@@ -22,12 +22,17 @@ export const ExamView: React.FC<ExamViewProps> = ({ session, onUpdateAnswer, onT
   const isPractice = session.mode === ExamMode.PRACTICE;
 
   useEffect(() => {
-    // Calculate initial time based on question count (e.g., 1.5 mins per question)
-    // Only set if it's 0 (start)
-    if (timeLeft === 0) {
-        setTimeLeft(session.questions.length * 90);
-    }
+    // Calculate total duration allowed: 90 seconds per question
+    const durationSeconds = session.questions.length * 90;
+    
+    // Calculate elapsed time based on absolute start time
+    // This ensures the timer is correct even if the page is refreshed
+    const elapsedSeconds = Math.floor((Date.now() - session.startTime) / 1000);
+    const remaining = Math.max(0, durationSeconds - elapsedSeconds);
+    
+    setTimeLeft(remaining);
 
+    // Start interval to tick down
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
@@ -40,7 +45,7 @@ export const ExamView: React.FC<ExamViewProps> = ({ session, onUpdateAnswer, onT
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [session.questions.length, onFinish]);
+  }, [session.questions.length, session.startTime, onFinish]);
 
   const formatTime = (seconds: number) => {
     const m = Math.floor(seconds / 60);
@@ -66,7 +71,7 @@ export const ExamView: React.FC<ExamViewProps> = ({ session, onUpdateAnswer, onT
         </div>
         
         <div className="flex items-center gap-6">
-            <div className="flex items-center gap-2 text-slate-700 font-mono font-medium bg-slate-100 px-3 py-1 rounded">
+            <div className={`flex items-center gap-2 font-mono font-medium px-3 py-1 rounded ${timeLeft < 300 ? 'bg-red-50 text-red-600' : 'bg-slate-100 text-slate-700'}`}>
                 <Clock className="h-4 w-4" />
                 {formatTime(timeLeft)}
             </div>

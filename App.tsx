@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { HashRouter } from 'react-router-dom';
 import { Dashboard } from './components/Dashboard';
 import { ExamView } from './components/ExamView';
@@ -8,10 +8,42 @@ import { ExamSession, ExamMode, Question } from './types';
 import { INITIAL_QUESTIONS } from './constants';
 
 const QUESTIONS_PER_SET = 15;
+const STORAGE_KEY_SESSION = 'secplus_session_v1';
+const STORAGE_KEY_RESULTS = 'secplus_results_v1';
 
 const App: React.FC = () => {
-  const [session, setSession] = useState<ExamSession | null>(null);
-  const [showResults, setShowResults] = useState(false);
+  // Initialize state from localStorage if available
+  const [session, setSession] = useState<ExamSession | null>(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY_SESSION);
+      return saved ? JSON.parse(saved) : null;
+    } catch (e) {
+      console.error("Failed to load session", e);
+      return null;
+    }
+  });
+
+  const [showResults, setShowResults] = useState(() => {
+    try {
+      return localStorage.getItem(STORAGE_KEY_RESULTS) === 'true';
+    } catch (e) {
+      return false;
+    }
+  });
+
+  // Persist session changes
+  useEffect(() => {
+    if (session) {
+      localStorage.setItem(STORAGE_KEY_SESSION, JSON.stringify(session));
+    } else {
+      localStorage.removeItem(STORAGE_KEY_SESSION);
+    }
+  }, [session]);
+
+  // Persist UI state (results view)
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY_RESULTS, String(showResults));
+  }, [showResults]);
 
   // Calculate how many unique "chunks" we have available in the static bank
   const uniqueSetsAvailable = Math.floor(INITIAL_QUESTIONS.length / QUESTIONS_PER_SET);
@@ -50,7 +82,7 @@ const App: React.FC = () => {
     }
 
     setSession({
-        id: `set-${setId}`,
+        id: `set-${setId}-${Date.now()}`,
         questions,
         answers: {},
         flags: {},
@@ -137,6 +169,7 @@ const App: React.FC = () => {
           <ResultsView session={session} onRestart={restartExam} onHome={restartExam} />
         ) : (
           <ExamView 
+            key={session.id}
             session={session} 
             onUpdateAnswer={updateAnswer} 
             onToggleFlag={toggleFlag}

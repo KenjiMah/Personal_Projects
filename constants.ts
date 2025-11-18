@@ -65,7 +65,7 @@ export const INITIAL_QUESTIONS: Question[] = [
       { id: 'D', text: "Faraday Cage" }
     ],
     correctOptionId: 'C',
-    explanation: "An access control vestibule (formerly mantrap) controls entry."
+    explanation: "An access control vestibule controls entry and prevents tailgating. This is commonly referred to as a 'mantrap' in exam materials."
   },
   {
     id: 'q5',
@@ -113,7 +113,7 @@ export const INITIAL_QUESTIONS: Question[] = [
     id: 'q8',
     domain: SecurityDomain.GENERAL,
     type: QuestionType.MULTIPLE_CHOICE,
-    text: "Physical security controls like fences, lights, and locks are considered:",
+    text: "Visible physical security controls like perimeter fences and motion-activated lighting are primarily considered:",
     options: [
       { id: 'A', text: "Administrative Controls" },
       { id: 'B', text: "Technical Controls" },
@@ -121,7 +121,7 @@ export const INITIAL_QUESTIONS: Question[] = [
       { id: 'D', text: "Compensating Controls" }
     ],
     correctOptionId: 'C',
-    explanation: "While physical, in this context fences and lights are primarily Deterrent controls."
+    explanation: "While they physically exist, their primary function in this context is to discourage intrusion (Deterrent)."
   },
   {
     id: 'q9',
@@ -225,7 +225,7 @@ export const INITIAL_QUESTIONS: Question[] = [
     id: 'q16',
     domain: SecurityDomain.THREATS,
     type: QuestionType.MULTIPLE_CHOICE,
-    text: "A user receives an email from a known vendor with an invoice attached. The email headers look legitimate, but the PDF contains malicious JavaScript. This is an example of:",
+    text: "A finance employee receives an email appearing to be from the CEO requesting an immediate wire transfer to a 'new vendor' to secure a contract. The email uses a spoofed domain. This is an example of:",
     options: [
       { id: 'A', text: "Business Email Compromise (BEC)" },
       { id: 'B', text: "Typosquatting" },
@@ -233,7 +233,7 @@ export const INITIAL_QUESTIONS: Question[] = [
       { id: 'D', text: "Domain Hijacking" }
     ],
     correctOptionId: 'A',
-    explanation: "BEC involves compromising legitimate accounts or spoofing trusted vendors to trick employees."
+    explanation: "BEC (Business Email Compromise) specifically targets employees with authority to transfer funds, aiming for financial fraud."
   },
   {
     id: 'q17',
@@ -1522,7 +1522,7 @@ export const INITIAL_QUESTIONS: Question[] = [
       { id: 'D', text: "TPM" }
     ],
     correctOptionId: 'A',
-    explanation: "MDM (Mobile Device Management) handles device-level encryption keys."
+    explanation: "MDM (Mobile Device Management) centrally manages device security policies, including enforcing and distributing encryption settings/keys."
   },
   {
     id: 'q138',
@@ -2250,7 +2250,7 @@ export const INITIAL_QUESTIONS: Question[] = [
       { id: 'D', text: "Repeater" }
     ],
     correctOptionId: 'B',
-    explanation: "Ad-hoc (IBSS) is device-to-device."
+    explanation: "Ad-hoc (IBSS) is device-to-device, also known as peer-to-peer mode."
   },
   {
     id: 'q190',
@@ -2354,15 +2354,15 @@ export const INITIAL_QUESTIONS: Question[] = [
     id: 'q197',
     domain: SecurityDomain.THREATS,
     type: QuestionType.MULTIPLE_CHOICE,
-    text: "Which term describes a vulnerability that is theoretically present but difficult to exploit?",
+    text: "A vulnerability scan reports a flaw that exists in the software version but cannot be exploited due to existing compensating controls (e.g., WAF). How is this best classified?",
     options: [
-      { id: 'A', text: "Theoretical Vulnerability" },
+      { id: 'A', text: "Low Severity / Informational" },
       { id: 'B', text: "False Positive" },
       { id: 'C', text: "False Negative" },
       { id: 'D', text: "True Negative" }
     ],
     correctOptionId: 'A',
-    explanation: "Often just a low-severity vulnerability."
+    explanation: "Vulnerabilities that are not exploitable due to environmental factors or controls are often classified as Low Severity or Informational findings."
   },
   {
     id: 'q198',

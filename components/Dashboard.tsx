@@ -104,7 +104,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onStartExam, onStartSet, i
           
           <div className="space-y-2">
             <select 
-              className="w-full rounded-md border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm p-2 border"
+              className="w-full rounded-md border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm p-2 border bg-white text-slate-900"
               onChange={(e) => setSelectedDomain(e.target.value)}
               defaultValue=""
             >
