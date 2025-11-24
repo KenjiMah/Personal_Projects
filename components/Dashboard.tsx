@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Shield, Target, Activity, Play, Grid } from 'lucide-react';
+import { Shield, Target, Activity, Play, Grid, BookOpen } from 'lucide-react';
 import { DOMAINS } from '../constants';
 import { Button } from './Button';
 import { ExamMode } from '../types';
@@ -8,11 +8,20 @@ import { ExamMode } from '../types';
 interface DashboardProps {
   onStartExam: (count: number, mode: ExamMode, domain?: string) => void;
   onStartSet: (setId: number) => void;
+  onOpenStudyGuide: () => void;
   isLoading?: boolean;
   uniqueSetsCount: number;
+  studyProgress: number; // Percentage 0-100
 }
 
-export const Dashboard: React.FC<DashboardProps> = ({ onStartExam, onStartSet, isLoading, uniqueSetsCount }) => {
+export const Dashboard: React.FC<DashboardProps> = ({ 
+  onStartExam, 
+  onStartSet, 
+  onOpenStudyGuide, 
+  isLoading, 
+  uniqueSetsCount,
+  studyProgress 
+}) => {
   const [selectedDomain, setSelectedDomain] = useState<string | null>(null);
 
   return (
@@ -27,49 +36,37 @@ export const Dashboard: React.FC<DashboardProps> = ({ onStartExam, onStartSet, i
           Sec+ Master <span className="text-blue-600">SY0-701</span>
         </h1>
         <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-          Professional practice suite. {uniqueSetsCount}+ unique practice sets, domain drills, and exam simulations.
+          Professional practice suite. {uniqueSetsCount}+ unique practice sets, domain drills, and study guides.
         </p>
       </header>
 
-      {/* Practice Sets Grid */}
-      <div className="mb-12">
-        <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-2">
-                <Grid className="text-blue-600 h-5 w-5" />
-                <h2 className="text-xl font-bold text-slate-800">Practice Sets</h2>
-            </div>
-            <span className="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-1 rounded">
-                {uniqueSetsCount} Unique Sets Available
-            </span>
-        </div>
+      {/* Top Action Grid */}
+      <div className="grid md:grid-cols-3 gap-6 mb-12">
         
-        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-5 gap-3">
-            {[...Array(20)].map((_, i) => {
-                const setNum = i + 1;
-                const isCore = setNum <= uniqueSetsCount; 
-                return (
-                    <button
-                        key={setNum}
-                        onClick={() => onStartSet(setNum)}
-                        disabled={isLoading}
-                        className={`
-                            relative h-16 rounded-lg border flex flex-col items-center justify-center transition-all hover:-translate-y-1
-                            ${isCore 
-                                ? 'bg-white border-blue-200 hover:border-blue-500 hover:shadow-md' 
-                                : 'bg-slate-50 border-slate-200 hover:border-slate-400 text-slate-600'}
-                        `}
-                    >
-                        <span className={`text-sm font-bold ${isCore ? 'text-blue-700' : 'text-slate-700'}`}>Test {setNum}</span>
-                        <span className="text-[10px] text-slate-400 uppercase mt-0.5">
-                            {isCore ? 'Unique' : 'Challenge'}
-                        </span>
-                    </button>
-                );
-            })}
+        {/* Study Guide Card */}
+        <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 hover:shadow-md transition-shadow flex flex-col relative overflow-hidden group">
+           <div className="absolute top-0 right-0 h-1 bg-indigo-500 w-full"></div>
+           <div className="flex justify-between items-start mb-4">
+             <div className="h-12 w-12 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center">
+                <BookOpen className="h-6 w-6" />
+             </div>
+             <div className="text-right">
+                <div className="text-2xl font-bold text-slate-900">{studyProgress}%</div>
+                <div className="text-xs text-slate-500 font-medium uppercase">Mastered</div>
+             </div>
+           </div>
+           <h3 className="text-xl font-bold text-slate-900 mb-2">Study Guide</h3>
+           <p className="text-slate-500 text-sm mb-6 flex-grow">
+             Review all 300+ questions with detailed explanations. Track your mastery of each domain at your own pace.
+           </p>
+           <Button 
+            onClick={onOpenStudyGuide}
+            className="w-full bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500"
+           >
+             Open Study Guide
+           </Button>
         </div>
-      </div>
 
-      <div className="grid md:grid-cols-2 gap-6 mb-12">
         {/* Custom Simulation Card */}
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 hover:shadow-md transition-shadow flex flex-col relative overflow-hidden">
           <div className="absolute top-0 right-0 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-bl-xl">
@@ -80,7 +77,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onStartExam, onStartSet, i
           </div>
           <h3 className="text-xl font-bold text-slate-900 mb-2">Exam Simulation</h3>
           <p className="text-slate-500 text-sm mb-6 flex-grow">
-            50 questions randomized from the entire pool. Timed mode (60 mins). No immediate answers. Mimics the actual Pearson VUE test.
+            50 questions randomized from the entire pool. Timed mode (60 mins). Mimics the actual Pearson VUE test.
           </p>
           <Button 
             variant="primary" 
@@ -123,6 +120,44 @@ export const Dashboard: React.FC<DashboardProps> = ({ onStartExam, onStartSet, i
               Start Focus Mode
             </Button>
           </div>
+        </div>
+      </div>
+
+      {/* Practice Sets Grid */}
+      <div className="mb-12">
+        <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-2">
+                <Grid className="text-blue-600 h-5 w-5" />
+                <h2 className="text-xl font-bold text-slate-800">Practice Sets</h2>
+            </div>
+            <span className="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-1 rounded">
+                {uniqueSetsCount} Unique Sets Available
+            </span>
+        </div>
+        
+        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-5 gap-3">
+            {[...Array(20)].map((_, i) => {
+                const setNum = i + 1;
+                const isCore = setNum <= uniqueSetsCount; 
+                return (
+                    <button
+                        key={setNum}
+                        onClick={() => onStartSet(setNum)}
+                        disabled={isLoading}
+                        className={`
+                            relative h-16 rounded-lg border flex flex-col items-center justify-center transition-all hover:-translate-y-1
+                            ${isCore 
+                                ? 'bg-white border-blue-200 hover:border-blue-500 hover:shadow-md' 
+                                : 'bg-slate-50 border-slate-200 hover:border-slate-400 text-slate-600'}
+                        `}
+                    >
+                        <span className={`text-sm font-bold ${isCore ? 'text-blue-700' : 'text-slate-700'}`}>Test {setNum}</span>
+                        <span className="text-[10px] text-slate-400 uppercase mt-0.5">
+                            {isCore ? 'Unique' : 'Challenge'}
+                        </span>
+                    </button>
+                );
+            })}
         </div>
       </div>
 

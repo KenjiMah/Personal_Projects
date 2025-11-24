@@ -5204,7 +5204,7 @@ export const STUDY_GUIDE_QUESTIONS: Question[] = [
     },
     {
       "id": "q201",
-      "domain": "Implementation",
+      "domain": "Threats, Vulnerabilities, and Mitigations",
       "type": QuestionType.MULTIPLE_CHOICE,
       "text": "A security analyst is reviewing network logs and notices that an attacker positioned in between the user and the target website is intercepting and potentially modifying the user’s communications before passing them on to the intended destination. This malicious activity occurs transparently, with neither the user nor the target website being aware. What type of network attack is being described?",
       "options": [
@@ -5230,7 +5230,7 @@ export const STUDY_GUIDE_QUESTIONS: Question[] = [
     },
     {
       "id": "q202",
-      "domain": "Implementation",
+      "domain": "Threats, Vulnerabilities, and Mitigations",
       "type": QuestionType.MULTIPLE_CHOICE,
       "text": "A financial firm outsources its payment processing to a third-party service provider. After a series of fraudulent transactions, it was discovered that the service provider was not employing the latest encryption standards when transmitting data. Which vulnerability related to supply chain does this scenario highlight?",
       "options": [
@@ -5256,7 +5256,7 @@ export const STUDY_GUIDE_QUESTIONS: Question[] = [
     },
     {
       "id": "q203",
-      "domain": "Implementation",
+      "domain": "Threats, Vulnerabilities, and Mitigations",
       "type": QuestionType.MULTIPLE_CHOICE,
       "text": "Julia, a cybersecurity analyst, notices a recently installed application named “PhotoEditorPro.exe” on a corporate workstation. Upon further inspection, she identifies that this application is silently exfiltrating sensitive company data to an external IP address. Which type of malware is Julia most likely observing?",
       "options": [
@@ -5282,7 +5282,7 @@ export const STUDY_GUIDE_QUESTIONS: Question[] = [
     },
     {
       "id": "q204",
-      "domain": "Implementation",
+      "domain": "Threats, Vulnerabilities, and Mitigations",
       "type": QuestionType.MULTIPLE_CHOICE,
       "text": "A company’s IT department notices a sharp increase in account lockouts over the past two days, especially during non-business hours. While some accounts are from various departments, a majority are from the finance team. Which of the following is the MOST plausible explanation for these lockouts?",
       "options": [
@@ -5308,7 +5308,7 @@ export const STUDY_GUIDE_QUESTIONS: Question[] = [
     },
     {
       "id": "q205",
-      "domain": "Implementation",
+      "domain": "Threats, Vulnerabilities, and Mitigations",
       "type": QuestionType.MULTIPLE_CHOICE,
       "text": "Sarah, a software developer at a tech company, decided to gain root access to her company-issued mobile device to customize its features. Soon after, the IT department detected unauthorized data transmissions from her device. Which mobile vulnerability is most likely associated with her actions?",
       "options": [
@@ -5334,7 +5334,7 @@ export const STUDY_GUIDE_QUESTIONS: Question[] = [
     },
     {
       "id": "q206",
-      "domain": "Implementation",
+      "domain": "Threats, Vulnerabilities, and Mitigations",
       "type": QuestionType.MULTIPLE_CHOICE,
       "text": "After a recent cyber attack on a corporation’s central database, the IT department has been tasked with enhancing the security of their network infrastructure. Which of the following would be the BEST technique to ensure that different departments, like HR and Finance, cannot access each other’s sensitive data?",
       "options": [
@@ -5360,7 +5360,7 @@ export const STUDY_GUIDE_QUESTIONS: Question[] = [
     },
     {
       "id": "q207",
-      "domain": "Implementation",
+      "domain": "Threats, Vulnerabilities, and Mitigations",
       "type": QuestionType.MULTIPLE_CHOICE,
       "text": "During an organization’s security review, the cybersecurity analyst noticed that there were multiple failed login attempts for different user accounts, each with a few commonly used passwords. What type of password attack does this scenario BEST describe?",
       "options": [
@@ -5386,7 +5386,7 @@ export const STUDY_GUIDE_QUESTIONS: Question[] = [
     },
     {
       "id": "q208",
-      "domain": "Implementation",
+      "domain": "Threats, Vulnerabilities, and Mitigations",
       "type": QuestionType.MULTIPLE_CHOICE,
       "text": "The IT team at TechnoCorp has noticed a consistent pattern over the last week where a particular server’s CPU usage spikes to 100% between 2:00 AM and 4:00 AM, a time when there’s typically minimal user activity. What could be the MOST probable reason for this?",
       "options": [
@@ -5412,7 +5412,7 @@ export const STUDY_GUIDE_QUESTIONS: Question[] = [
     },
     {
       "id": "q209",
-      "domain": "Implementation",
+      "domain": "Threats, Vulnerabilities, and Mitigations",
       "type": QuestionType.MULTIPLE_CHOICE,
       "text": "An organization’s IT department noticed a rapid increase in network traffic over the past 24 hours. Simultaneously, many employees reported that their systems have been slow and that they received a file named “updatePatch.exe” from coworkers via email, even though the coworkers did not intentionally send any files. What type of malware is most likely responsible for this behavior?",
       "options": [
@@ -5438,7 +5438,7 @@ export const STUDY_GUIDE_QUESTIONS: Question[] = [
     },
     {
       "id": "q210",
-      "domain": "Implementation",
+      "domain": "Threats, Vulnerabilities, and Mitigations",
       "type": QuestionType.MULTIPLE_CHOICE,
       "text": "During a routine check, an IT technician notices several files on a company server have been renamed with a “.locked” extension and there’s a new file named “README_TO_RECOVER_FILES.txt” present in the root directory. Based on these indicators, which type of malicious activity is most likely in progress?",
       "options": [
@@ -5464,7 +5464,7 @@ export const STUDY_GUIDE_QUESTIONS: Question[] = [
     },
     {
       "id": "q211",
-      "domain": "Implementation",
+      "domain": "Threats, Vulnerabilities, and Mitigations",
       "type": QuestionType.MULTIPLE_CHOICE,
       "text": "An organization is choosing a hash function for digital signatures. They want to ensure that it is resistant to scenarios where an attacker might produce two different messages having the same hash. Which type of attack are they trying to defend against?",
       "options": [
@@ -5490,7 +5490,7 @@ export const STUDY_GUIDE_QUESTIONS: Question[] = [
     },
     {
       "id": "q212",
-      "domain": "Implementation",
+      "domain": "Threats, Vulnerabilities, and Mitigations",
       "type": QuestionType.MULTIPLE_CHOICE,
       "text": "An IT security team received reports that a new, previously unknown vulnerability was being actively exploited in the wild. The software vendor has not yet provided a patch for the vulnerability. What is the most accurate term for this vulnerability?",
       "options": [
@@ -5516,7 +5516,7 @@ export const STUDY_GUIDE_QUESTIONS: Question[] = [
     },
     {
       "id": "q213",
-      "domain": "Implementation",
+      "domain": "Threats, Vulnerabilities, and Mitigations",
       "type": QuestionType.MULTIPLE_CHOICE,
       "text": "A company has recently deployed a new e-commerce application. The security team wants to ensure they can detect any unauthorized or malicious activities on the application. Which of the following would be the MOST effective way to achieve this goal?",
       "options": [
@@ -5542,7 +5542,7 @@ export const STUDY_GUIDE_QUESTIONS: Question[] = [
     },
     {
       "id": "q214",
-      "domain": "Implementation",
+      "domain": "Threats, Vulnerabilities, and Mitigations",
       "type": QuestionType.MULTIPLE_CHOICE,
       "text": "Ella, a security analyst, is reviewing the logs of a web application and notices that an attacker attempted to use the following input in a login form: ' OR '1'='1' --. This input was used in an effort to manipulate the application’s backend database. What type of injection attack is this an example of?",
       "options": [
@@ -5568,7 +5568,7 @@ export const STUDY_GUIDE_QUESTIONS: Question[] = [
     },
     {
       "id": "q215",
-      "domain": "Implementation",
+      "domain": "Threats, Vulnerabilities, and Mitigations",
       "type": QuestionType.MULTIPLE_CHOICE,
       "text": "A medium-sized company has just deployed a new file server for the HR department. They want to ensure that only HR employees can view and edit HR-specific documents, while the IT department should only be able to perform system maintenance tasks. What should the company implement to achieve this requirement?",
       "options": [
@@ -5594,7 +5594,7 @@ export const STUDY_GUIDE_QUESTIONS: Question[] = [
     },
     {
       "id": "q216",
-      "domain": "Implementation",
+      "domain": "Threats, Vulnerabilities, and Mitigations",
       "type": QuestionType.MULTIPLE_CHOICE,
       "text": "An e-commerce website suddenly experiences a sharp increase in traffic, causing the website to become slow and occasionally inaccessible. The IT team observes that a large number of requests are originating from multiple IP addresses spread across various countries. What type of network attack is the e-commerce website likely experiencing?",
       "options": [
@@ -5620,7 +5620,7 @@ export const STUDY_GUIDE_QUESTIONS: Question[] = [
     },
     {
       "id": "q217",
-      "domain": "Implementation",
+      "domain": "Threats, Vulnerabilities, and Mitigations",
       "type": QuestionType.MULTIPLE_CHOICE,
       "text": "A security auditor found that a website’s login form returns detailed error messages like “Incorrect column name” or “Table not found.” Which type of vulnerability could attackers potentially exploit using this information?",
       "options": [
@@ -5646,7 +5646,7 @@ export const STUDY_GUIDE_QUESTIONS: Question[] = [
     },
     {
       "id": "q218",
-      "domain": "Implementation",
+      "domain": "Threats, Vulnerabilities, and Mitigations",
       "type": QuestionType.MULTIPLE_CHOICE,
       "text": "An employee at a large corporation has recently installed an app on his company-issued mobile device from a website instead of the approved app store. The app claimed to help boost productivity, but soon after, sensitive data from the mobile device was found to be transmitted to an unknown server. What mobile vulnerability was exploited?",
       "options": [
@@ -5672,7 +5672,7 @@ export const STUDY_GUIDE_QUESTIONS: Question[] = [
     },
     {
       "id": "q219",
-      "domain": "Implementation",
+      "domain": "Threats, Vulnerabilities, and Mitigations",
       "type": QuestionType.MULTIPLE_CHOICE,
       "text": "The IT department of XYZ Corp noticed that server logs are recording user login attempts during non-business hours, specifically between 2:00 AM and 3:00 AM, a time when no scheduled tasks or backups are set to run. Which of the following is the MOST plausible explanation for this unusual activity?",
       "options": [
@@ -5698,7 +5698,7 @@ export const STUDY_GUIDE_QUESTIONS: Question[] = [
     },
     {
       "id": "q220",
-      "domain": "Implementation",
+      "domain": "Threats, Vulnerabilities, and Mitigations",
       "type": QuestionType.MULTIPLE_CHOICE,
       "text": "An employee notices a stranger standing unusually close to her with an unfamiliar device while she uses her RFID badge to enter the office building. A few days later, her colleague’s badge suddenly stops working, even though it was not reported lost or damaged. What type of attack should the security team suspect?",
       "options": [
