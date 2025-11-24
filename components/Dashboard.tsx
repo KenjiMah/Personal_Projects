@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Shield, Target, Activity, Play, Grid, BookOpen } from 'lucide-react';
+import { Shield, Target, Activity, Play, Grid, BookOpen, FileText } from 'lucide-react';
 import { DOMAINS } from '../constants';
 import { Button } from './Button';
 import { ExamMode } from '../types';
@@ -8,6 +8,7 @@ import { ExamMode } from '../types';
 interface DashboardProps {
   onStartExam: (count: number, mode: ExamMode, domain?: string) => void;
   onStartSet: (setId: number) => void;
+  onStartExamsDigestExam: (examNumber: number) => void;
   onOpenStudyGuide: () => void;
   isLoading?: boolean;
   uniqueSetsCount: number;
@@ -16,7 +17,8 @@ interface DashboardProps {
 
 export const Dashboard: React.FC<DashboardProps> = ({ 
   onStartExam, 
-  onStartSet, 
+  onStartSet,
+  onStartExamsDigestExam,
   onOpenStudyGuide, 
   isLoading, 
   uniqueSetsCount,
@@ -155,6 +157,36 @@ export const Dashboard: React.FC<DashboardProps> = ({
                         <span className="text-[10px] text-slate-400 uppercase mt-0.5">
                             {isCore ? 'Unique' : 'Challenge'}
                         </span>
+                    </button>
+                );
+            })}
+        </div>
+      </div>
+
+      {/* Exams Digest Practice Questions */}
+      <div className="mb-12">
+        <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-2">
+                <FileText className="text-purple-600 h-5 w-5" />
+                <h2 className="text-xl font-bold text-slate-800">Exams Digest Practice Questions</h2>
+            </div>
+            <span className="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-1 rounded">
+                6 Exams Available
+            </span>
+        </div>
+        
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-3">
+            {[...Array(6)].map((_, i) => {
+                const examNum = i + 1;
+                return (
+                    <button
+                        key={examNum}
+                        onClick={() => onStartExamsDigestExam(examNum)}
+                        disabled={isLoading}
+                        className="relative h-20 rounded-lg border-2 border-purple-200 bg-white hover:border-purple-500 hover:shadow-md transition-all hover:-translate-y-1 flex flex-col items-center justify-center"
+                    >
+                        <span className="text-base font-bold text-purple-700">Exam {examNum}</span>
+                        <span className="text-[10px] text-slate-500 uppercase mt-1">Exams Digest</span>
                     </button>
                 );
             })}

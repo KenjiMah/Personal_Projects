@@ -8,6 +8,7 @@ import { StudyGuideView } from './components/StudyGuideView';
 import { ExamSession, ExamMode, Question } from './types';
 import { INITIAL_QUESTIONS } from './constants';
 import { STUDY_GUIDE_QUESTIONS } from './studyGuideConstants';
+import { EXAMS_DIGEST_QUESTIONS } from './examsDigestConstants';
 
 const QUESTIONS_PER_SET = 15;
 const STORAGE_KEY_SESSION = 'secplus_session_v1';
@@ -171,6 +172,24 @@ const App: React.FC = () => {
     });
   };
 
+  const startExamsDigestExam = (examNumber: number) => {
+    // examNumber is 1-indexed (1-6)
+    const examIndex = examNumber - 1;
+    if (examIndex >= 0 && examIndex < EXAMS_DIGEST_QUESTIONS.length) {
+      const questions = EXAMS_DIGEST_QUESTIONS[examIndex];
+      
+      setSession({
+        id: `exams-digest-${examNumber}-${Date.now()}`,
+        questions,
+        answers: {},
+        flags: {},
+        startTime: Date.now(),
+        mode: ExamMode.PRACTICE
+      });
+      setShowResults(false);
+    }
+  };
+
   // --- Render ---
 
   return (
@@ -198,7 +217,8 @@ const App: React.FC = () => {
         ) : (
           <Dashboard 
             onStartExam={startExam} 
-            onStartSet={startPracticeSet} 
+            onStartSet={startPracticeSet}
+            onStartExamsDigestExam={startExamsDigestExam}
             onOpenStudyGuide={() => setView('study-guide')}
             isLoading={false} 
             uniqueSetsCount={uniqueSetsAvailable}
