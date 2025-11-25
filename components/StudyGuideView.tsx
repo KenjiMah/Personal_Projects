@@ -106,20 +106,20 @@ export const StudyGuideView: React.FC<StudyGuideViewProps> = ({
   return (
     <div className="flex flex-col h-screen bg-gray-50">
       {/* Header */}
-      <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-4 lg:px-8 shrink-0 z-20">
-        <div className="flex items-center gap-3">
-          <Button variant="ghost" size="sm" onClick={onBack} className="-ml-2">
+      <header className="min-h-16 bg-white border-b border-slate-200 flex items-center justify-between px-3 sm:px-4 lg:px-8 shrink-0 z-20">
+        <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
+          <Button variant="ghost" size="sm" onClick={onBack} className="-ml-2 touch-manipulation">
             <ChevronLeft className="h-5 w-5 text-slate-500" />
           </Button>
-          <div className="flex items-center gap-2">
-            <div className="h-8 w-8 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-600">
-                <BookOpen className="h-5 w-5" />
+          <div className="flex items-center gap-2 min-w-0">
+            <div className="h-7 w-7 sm:h-8 sm:w-8 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-600 flex-shrink-0">
+                <BookOpen className="h-4 w-4 sm:h-5 sm:w-5" />
             </div>
-            <h1 className="text-lg font-bold text-slate-800">Study Guide</h1>
+            <h1 className="text-base sm:text-lg font-bold text-slate-800 truncate">Study Guide</h1>
           </div>
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
             <div className="hidden md:flex flex-col items-end">
                 <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Mastery Progress</div>
                 <div className="flex items-center gap-2">
@@ -128,6 +128,12 @@ export const StudyGuideView: React.FC<StudyGuideViewProps> = ({
                     </div>
                     <span className="text-sm font-bold text-indigo-600">{progressStats.percentage}%</span>
                 </div>
+            </div>
+            <div className="md:hidden flex items-center gap-2">
+                <div className="w-16 h-2 bg-slate-100 rounded-full overflow-hidden">
+                    <div className="h-full bg-indigo-500 transition-all duration-500" style={{ width: `${progressStats.percentage}%` }} />
+                </div>
+                <span className="text-xs font-bold text-indigo-600">{progressStats.percentage}%</span>
             </div>
         </div>
       </header>
@@ -191,9 +197,9 @@ export const StudyGuideView: React.FC<StudyGuideViewProps> = ({
             <div className="max-w-3xl mx-auto h-full flex flex-col">
                 
                 {/* Mobile Filter / Status Bar */}
-                <div className="lg:hidden mb-4 flex gap-2 overflow-x-auto pb-2">
+                <div className="lg:hidden mb-4 flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
                     <select 
-                        className="bg-white border border-slate-300 text-slate-700 text-sm rounded-md focus:ring-indigo-500 focus:border-indigo-500 block p-2.5"
+                        className="bg-white border border-slate-300 text-slate-700 text-sm rounded-md focus:ring-indigo-500 focus:border-indigo-500 block p-3 touch-manipulation flex-shrink-0"
                         value={selectedDomain}
                         onChange={(e) => setSelectedDomain(e.target.value)}
                     >
@@ -202,48 +208,49 @@ export const StudyGuideView: React.FC<StudyGuideViewProps> = ({
                             <option key={d.id} value={d.id}>{d.name}</option>
                         ))}
                     </select>
-                     <div className="bg-white border border-slate-300 rounded-md px-3 py-2 flex items-center gap-2 min-w-fit">
-                        <CheckCircle className="h-4 w-4 text-indigo-600" />
-                        <span className="text-sm font-medium text-slate-700">{progressStats.mastered} Mastered</span>
+                     <div className="bg-white border border-slate-300 rounded-md px-3 py-2.5 flex items-center gap-2 min-w-fit flex-shrink-0">
+                        <CheckCircle className="h-4 w-4 text-indigo-600 flex-shrink-0" />
+                        <span className="text-xs sm:text-sm font-medium text-slate-700 whitespace-nowrap">{progressStats.mastered} Mastered</span>
                     </div>
                 </div>
 
                 {filteredQuestions.length > 0 ? (
                     <div className="bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col min-h-[500px] relative overflow-hidden">
                         {/* Question Header */}
-                        <div className="p-6 border-b border-slate-100 flex justify-between items-start bg-slate-50/50">
-                            <div>
-                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-600 mb-3">
+                        <div className="p-4 sm:p-6 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start gap-3 sm:gap-0 bg-slate-50/50">
+                            <div className="flex-1 min-w-0">
+                                <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-600 mb-2 sm:mb-3 truncate max-w-full">
                                     {currentQuestion.domain}
                                 </span>
-                                <h2 className="text-lg font-medium text-slate-900">
+                                <h2 className="text-base sm:text-lg font-medium text-slate-900">
                                     Question {currentIndex + 1} <span className="text-slate-400 font-normal">of {filteredQuestions.length}</span>
                                 </h2>
                             </div>
                             <button
                                 onClick={() => onToggleMastered(currentQuestion.id)}
-                                className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+                                className={`flex items-center gap-2 px-3 py-2 rounded-full text-xs sm:text-sm font-medium transition-all touch-manipulation active:scale-95 whitespace-nowrap flex-shrink-0 ${
                                     isMastered 
-                                    ? 'bg-green-100 text-green-700 hover:bg-green-200' 
-                                    : 'bg-white border border-slate-200 text-slate-500 hover:border-indigo-300 hover:text-indigo-600'
+                                    ? 'bg-green-100 text-green-700 active:bg-green-200' 
+                                    : 'bg-white border border-slate-200 text-slate-500 active:border-indigo-300 active:text-indigo-600'
                                 }`}
                             >
-                                {isMastered ? <CheckCircle className="h-4 w-4" /> : <Circle className="h-4 w-4" />}
-                                {isMastered ? 'Mastered' : 'Mark as Mastered'}
+                                {isMastered ? <CheckCircle className="h-4 w-4 flex-shrink-0" /> : <Circle className="h-4 w-4 flex-shrink-0" />}
+                                <span className="hidden sm:inline">{isMastered ? 'Mastered' : 'Mark as Mastered'}</span>
+                                <span className="sm:hidden">{isMastered ? 'Mastered' : 'Mark'}</span>
                             </button>
                         </div>
 
                         {/* Question Body */}
-                        <div className="p-6 md:p-8 flex-1">
-                            <p className="text-xl text-slate-800 leading-relaxed mb-8 font-medium">
+                        <div className="p-4 sm:p-6 md:p-8 flex-1">
+                            <p className="text-base sm:text-lg md:text-xl text-slate-800 leading-relaxed mb-6 sm:mb-8 font-medium">
                                 {currentQuestion.text}
                             </p>
 
-                            <div className="space-y-3">
+                            <div className="space-y-2 sm:space-y-3">
                                 {currentQuestion.options.map((option) => {
                                     const isCorrect = option.id === currentQuestion.correctOptionId;
                                     
-                                    let optionClass = "border-slate-200 bg-white hover:bg-slate-50";
+                                    let optionClass = "border-slate-200 bg-white active:bg-slate-50";
                                     if (showAnswer) {
                                         if (isCorrect) optionClass = "border-green-500 bg-green-50 ring-1 ring-green-500";
                                         else optionClass = "border-slate-100 bg-slate-50 opacity-60";
@@ -253,7 +260,7 @@ export const StudyGuideView: React.FC<StudyGuideViewProps> = ({
                                         <button
                                             key={option.id}
                                             onClick={() => !showAnswer && setShowAnswer(true)}
-                                            className={`w-full p-4 rounded-lg border-2 transition-all flex items-start gap-4 text-left cursor-pointer ${optionClass}`}
+                                            className={`w-full p-3 sm:p-4 rounded-lg border-2 transition-all flex items-start gap-3 sm:gap-4 text-left touch-manipulation active:scale-[0.98] min-h-[56px] sm:min-h-0 ${optionClass}`}
                                             disabled={showAnswer}
                                         >
                                             <div className={`
@@ -262,10 +269,10 @@ export const StudyGuideView: React.FC<StudyGuideViewProps> = ({
                                             `}>
                                                 {option.id}
                                             </div>
-                                            <span className={`text-base ${showAnswer && isCorrect ? 'text-green-900 font-medium' : 'text-slate-700'}`}>
+                                            <span className={`text-sm sm:text-base flex-1 ${showAnswer && isCorrect ? 'text-green-900 font-medium' : 'text-slate-700'}`}>
                                                 {option.text}
                                             </span>
-                                            {showAnswer && isCorrect && <Check className="ml-auto h-5 w-5 text-green-600" />}
+                                            {showAnswer && isCorrect && <Check className="ml-auto h-5 w-5 text-green-600 flex-shrink-0" />}
                                         </button>
                                     );
                                 })}
@@ -287,7 +294,7 @@ export const StudyGuideView: React.FC<StudyGuideViewProps> = ({
                         )}
 
                         {/* Footer / Controls */}
-                        <div className="p-4 bg-white border-t border-slate-200 flex items-center justify-between sticky bottom-0">
+                        <div className="p-3 sm:p-4 bg-white border-t border-slate-200 flex items-center justify-between gap-2 sm:gap-0 sticky bottom-0">
                             <Button 
                                 variant="outline" 
                                 onClick={() => {
@@ -295,13 +302,18 @@ export const StudyGuideView: React.FC<StudyGuideViewProps> = ({
                                     setCurrentIndex(prev => Math.max(0, prev - 1));
                                 }}
                                 disabled={currentIndex === 0}
+                                className="touch-manipulation flex-1 sm:flex-initial min-h-[44px]"
+                                size="md"
                             >
-                                <ChevronLeft className="h-4 w-4 mr-2" /> Previous
+                                <ChevronLeft className="h-4 w-4 mr-2" /> 
+                                <span className="hidden sm:inline">Previous</span>
+                                <span className="sm:hidden">Prev</span>
                             </Button>
 
                             {!showAnswer ? (
-                                <Button onClick={() => setShowAnswer(true)} className="bg-indigo-600 hover:bg-indigo-700 text-white min-w-[140px]">
-                                    Reveal Answer
+                                <Button onClick={() => setShowAnswer(true)} className="bg-indigo-600 hover:bg-indigo-700 text-white min-w-[120px] sm:min-w-[140px] touch-manipulation flex-1 sm:flex-initial min-h-[44px]" size="md">
+                                    <span className="hidden sm:inline">Reveal Answer</span>
+                                    <span className="sm:hidden">Reveal</span>
                                 </Button>
                             ) : (
                                 <Button 
@@ -312,9 +324,12 @@ export const StudyGuideView: React.FC<StudyGuideViewProps> = ({
                                         }
                                     }}
                                     disabled={currentIndex === filteredQuestions.length - 1}
-                                    className="bg-slate-800 hover:bg-slate-900 text-white min-w-[140px]"
+                                    className="bg-slate-800 hover:bg-slate-900 text-white min-w-[120px] sm:min-w-[140px] touch-manipulation flex-1 sm:flex-initial min-h-[44px]"
+                                    size="md"
                                 >
-                                    Next Question <ChevronRight className="h-4 w-4 ml-2" />
+                                    <span className="hidden sm:inline">Next Question</span>
+                                    <span className="sm:hidden">Next</span>
+                                    <ChevronRight className="h-4 w-4 ml-2" />
                                 </Button>
                             )}
                         </div>

@@ -27,83 +27,85 @@ export const Dashboard: React.FC<DashboardProps> = ({
   const [selectedDomain, setSelectedDomain] = useState<string | null>(null);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <header className="mb-10 text-center">
-        <div className="flex justify-center mb-4">
-          <div className="h-16 w-16 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-200">
-            <Shield className="h-10 w-10 text-white" />
+    <div className="max-w-6xl mx-auto px-4 py-4 sm:py-8">
+      <header className="mb-6 sm:mb-10 text-center">
+        <div className="flex justify-center mb-3 sm:mb-4">
+          <div className="h-12 w-12 sm:h-16 sm:w-16 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-200">
+            <Shield className="h-6 w-6 sm:h-10 sm:w-10 text-white" />
           </div>
         </div>
-        <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight mb-3">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-2 sm:mb-3">
           Sec+ Master <span className="text-blue-600">SY0-701</span>
         </h1>
-        <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+        <p className="text-sm sm:text-base md:text-lg text-slate-600 max-w-2xl mx-auto px-2">
           Professional practice suite. {uniqueSetsCount}+ unique practice sets, domain drills, and study guides.
         </p>
       </header>
 
       {/* Top Action Grid */}
-      <div className="grid md:grid-cols-3 gap-6 mb-12">
+      <div className="grid md:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12">
         
         {/* Study Guide Card */}
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 hover:shadow-md transition-shadow flex flex-col relative overflow-hidden group">
+        <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-100 hover:shadow-md transition-shadow flex flex-col relative overflow-hidden group">
            <div className="absolute top-0 right-0 h-1 bg-indigo-500 w-full"></div>
-           <div className="flex justify-between items-start mb-4">
-             <div className="h-12 w-12 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center">
-                <BookOpen className="h-6 w-6" />
+           <div className="flex justify-between items-start mb-3 sm:mb-4">
+             <div className="h-10 w-10 sm:h-12 sm:w-12 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center">
+                <BookOpen className="h-5 w-5 sm:h-6 sm:w-6" />
              </div>
              <div className="text-right">
-                <div className="text-2xl font-bold text-slate-900">{studyProgress}%</div>
+                <div className="text-xl sm:text-2xl font-bold text-slate-900">{studyProgress}%</div>
                 <div className="text-xs text-slate-500 font-medium uppercase">Mastered</div>
              </div>
            </div>
-           <h3 className="text-xl font-bold text-slate-900 mb-2">Study Guide</h3>
-           <p className="text-slate-500 text-sm mb-6 flex-grow">
+           <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-2">Study Guide</h3>
+           <p className="text-slate-500 text-xs sm:text-sm mb-4 sm:mb-6 flex-grow">
              Review all 300+ questions with detailed explanations. Track your mastery of each domain at your own pace.
            </p>
            <Button 
             onClick={onOpenStudyGuide}
-            className="w-full bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500"
+            className="w-full bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 touch-manipulation"
+            size="md"
            >
              Open Study Guide
            </Button>
         </div>
 
         {/* Custom Simulation Card */}
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 hover:shadow-md transition-shadow flex flex-col relative overflow-hidden">
-          <div className="absolute top-0 right-0 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-bl-xl">
+        <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-100 hover:shadow-md transition-shadow flex flex-col relative overflow-hidden">
+          <div className="absolute top-0 right-0 bg-blue-600 text-white text-xs font-bold px-2 sm:px-3 py-1 rounded-bl-xl">
             REAL EXAM MODE
           </div>
-          <div className="h-12 w-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center mb-4">
-            <Target className="h-6 w-6" />
+          <div className="h-10 w-10 sm:h-12 sm:w-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center mb-3 sm:mb-4">
+            <Target className="h-5 w-5 sm:h-6 sm:w-6" />
           </div>
-          <h3 className="text-xl font-bold text-slate-900 mb-2">Exam Simulation</h3>
-          <p className="text-slate-500 text-sm mb-6 flex-grow">
+          <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-2">Exam Simulation</h3>
+          <p className="text-slate-500 text-xs sm:text-sm mb-4 sm:mb-6 flex-grow">
             50 questions randomized from the entire pool. Timed mode (60 mins). Mimics the actual Pearson VUE test.
           </p>
           <Button 
             variant="primary" 
             onClick={() => onStartExam(50, ExamMode.SIMULATION)}
             isLoading={isLoading}
-            className="w-full justify-between group"
+            className="w-full justify-between group touch-manipulation"
+            size="md"
           >
             Start Simulation <Play className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
           </Button>
         </div>
 
         {/* Domain Focus Card */}
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 hover:shadow-md transition-shadow flex flex-col">
-          <div className="h-12 w-12 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center mb-4">
-            <Activity className="h-6 w-6" />
+        <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-100 hover:shadow-md transition-shadow flex flex-col">
+          <div className="h-10 w-10 sm:h-12 sm:w-12 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center mb-3 sm:mb-4">
+            <Activity className="h-5 w-5 sm:h-6 sm:w-6" />
           </div>
-          <h3 className="text-xl font-bold text-slate-900 mb-2">Domain Focus</h3>
-          <p className="text-slate-500 text-sm mb-4 flex-grow">
+          <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-2">Domain Focus</h3>
+          <p className="text-slate-500 text-xs sm:text-sm mb-3 sm:mb-4 flex-grow">
             Target weak areas. Select a specific domain to practice 10 focused questions.
           </p>
           
           <div className="space-y-2">
             <select 
-              className="w-full rounded-md border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm p-2 border bg-white text-slate-900"
+              className="w-full rounded-md border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm p-3 sm:p-2 border bg-white text-slate-900 touch-manipulation"
               onChange={(e) => setSelectedDomain(e.target.value)}
               defaultValue=""
             >
@@ -114,10 +116,11 @@ export const Dashboard: React.FC<DashboardProps> = ({
             </select>
             <Button 
               variant="outline" 
-              className="w-full"
+              className="w-full touch-manipulation"
               disabled={!selectedDomain}
               isLoading={isLoading}
               onClick={() => selectedDomain && onStartExam(10, ExamMode.PRACTICE, selectedDomain)}
+              size="md"
             >
               Start Focus Mode
             </Button>
@@ -126,18 +129,18 @@ export const Dashboard: React.FC<DashboardProps> = ({
       </div>
 
       {/* Practice Sets Grid */}
-      <div className="mb-12">
-        <div className="flex items-center justify-between mb-6">
+      <div className="mb-8 sm:mb-12">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 gap-2">
             <div className="flex items-center gap-2">
-                <Grid className="text-blue-600 h-5 w-5" />
-                <h2 className="text-xl font-bold text-slate-800">Practice Sets</h2>
+                <Grid className="text-blue-600 h-4 w-4 sm:h-5 sm:w-5" />
+                <h2 className="text-lg sm:text-xl font-bold text-slate-800">Practice Sets</h2>
             </div>
             <span className="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-1 rounded">
                 {uniqueSetsCount} Unique Sets Available
             </span>
         </div>
         
-        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-5 gap-3">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-5 gap-2 sm:gap-3">
             {[...Array(20)].map((_, i) => {
                 const setNum = i + 1;
                 const isCore = setNum <= uniqueSetsCount; 
@@ -147,14 +150,14 @@ export const Dashboard: React.FC<DashboardProps> = ({
                         onClick={() => onStartSet(setNum)}
                         disabled={isLoading}
                         className={`
-                            relative h-16 rounded-lg border flex flex-col items-center justify-center transition-all hover:-translate-y-1
+                            relative min-h-[60px] sm:h-16 rounded-lg border flex flex-col items-center justify-center transition-all active:scale-95 touch-manipulation
                             ${isCore 
-                                ? 'bg-white border-blue-200 hover:border-blue-500 hover:shadow-md' 
-                                : 'bg-slate-50 border-slate-200 hover:border-slate-400 text-slate-600'}
+                                ? 'bg-white border-blue-200 hover:border-blue-500 hover:shadow-md active:bg-blue-50' 
+                                : 'bg-slate-50 border-slate-200 hover:border-slate-400 text-slate-600 active:bg-slate-100'}
                         `}
                     >
-                        <span className={`text-sm font-bold ${isCore ? 'text-blue-700' : 'text-slate-700'}`}>Test {setNum}</span>
-                        <span className="text-[10px] text-slate-400 uppercase mt-0.5">
+                        <span className={`text-xs sm:text-sm font-bold ${isCore ? 'text-blue-700' : 'text-slate-700'}`}>Test {setNum}</span>
+                        <span className="text-[9px] sm:text-[10px] text-slate-400 uppercase mt-0.5">
                             {isCore ? 'Unique' : 'Challenge'}
                         </span>
                     </button>
@@ -164,18 +167,18 @@ export const Dashboard: React.FC<DashboardProps> = ({
       </div>
 
       {/* Exams Digest Practice Questions */}
-      <div className="mb-12">
-        <div className="flex items-center justify-between mb-6">
+      <div className="mb-8 sm:mb-12">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 gap-2">
             <div className="flex items-center gap-2">
-                <FileText className="text-purple-600 h-5 w-5" />
-                <h2 className="text-xl font-bold text-slate-800">Exams Digest Practice Questions</h2>
+                <FileText className="text-purple-600 h-4 w-4 sm:h-5 sm:w-5" />
+                <h2 className="text-lg sm:text-xl font-bold text-slate-800">Exams Digest Practice Questions</h2>
             </div>
             <span className="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-1 rounded">
                 6 Exams Available
             </span>
         </div>
         
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3">
             {[...Array(6)].map((_, i) => {
                 const examNum = i + 1;
                 return (
@@ -183,19 +186,19 @@ export const Dashboard: React.FC<DashboardProps> = ({
                         key={examNum}
                         onClick={() => onStartExamsDigestExam(examNum)}
                         disabled={isLoading}
-                        className="relative h-20 rounded-lg border-2 border-purple-200 bg-white hover:border-purple-500 hover:shadow-md transition-all hover:-translate-y-1 flex flex-col items-center justify-center"
+                        className="relative min-h-[70px] sm:h-20 rounded-lg border-2 border-purple-200 bg-white hover:border-purple-500 hover:shadow-md transition-all active:scale-95 touch-manipulation active:bg-purple-50 flex flex-col items-center justify-center"
                     >
-                        <span className="text-base font-bold text-purple-700">Exam {examNum}</span>
-                        <span className="text-[10px] text-slate-500 uppercase mt-1">Exams Digest</span>
+                        <span className="text-sm sm:text-base font-bold text-purple-700">Exam {examNum}</span>
+                        <span className="text-[9px] sm:text-[10px] text-slate-500 uppercase mt-1">Exams Digest</span>
                     </button>
                 );
             })}
         </div>
       </div>
 
-      <div className="border-t border-slate-200 pt-8">
-        <h4 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">Exam Objectives (SY0-701)</h4>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="border-t border-slate-200 pt-6 sm:pt-8">
+        <h4 className="text-xs sm:text-sm font-semibold text-slate-400 uppercase tracking-wider mb-3 sm:mb-4">Exam Objectives (SY0-701)</h4>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
           {DOMAINS.map((domain) => (
             <div key={domain.id} className="bg-slate-50 p-4 rounded-lg border border-slate-100">
               <div className="flex items-center justify-between mb-2">

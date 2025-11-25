@@ -58,25 +58,29 @@ export const ExamView: React.FC<ExamViewProps> = ({ session, onUpdateAnswer, onT
   return (
     <div className="flex flex-col h-screen bg-gray-50">
       {/* Top Bar */}
-      <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-4 shrink-0 z-20 relative">
-        <div className="flex items-center gap-4">
+      <header className="min-h-16 bg-white border-b border-slate-200 flex items-center justify-between px-3 sm:px-4 py-2 sm:py-0 shrink-0 z-20 relative">
+        <div className="flex items-center gap-2 sm:gap-4 flex-1 min-w-0">
             <button 
-                className="lg:hidden p-2 text-slate-600"
+                className="lg:hidden p-2 -ml-2 text-slate-600 touch-manipulation active:bg-slate-100 rounded"
                 onClick={() => setSidebarOpen(!isSidebarOpen)}
+                aria-label="Toggle navigation"
             >
                 {isSidebarOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
-            <div className="font-bold text-slate-800 hidden sm:block">CompTIA Security+ Exam</div>
-            <div className="text-sm text-slate-500 hidden sm:block">| Question {currentIndex + 1} of {session.questions.length}</div>
+            <div className="flex items-center gap-1 sm:gap-2 min-w-0">
+              <div className="font-bold text-xs sm:text-sm md:text-base text-slate-800 truncate">Sec+ Exam</div>
+              <div className="text-xs sm:text-sm text-slate-500 hidden xs:inline">| Q{currentIndex + 1}/{session.questions.length}</div>
+            </div>
         </div>
         
-        <div className="flex items-center gap-6">
-            <div className={`flex items-center gap-2 font-mono font-medium px-3 py-1 rounded ${timeLeft < 300 ? 'bg-red-50 text-red-600' : 'bg-slate-100 text-slate-700'}`}>
-                <Clock className="h-4 w-4" />
-                {formatTime(timeLeft)}
+        <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
+            <div className={`flex items-center gap-1 sm:gap-2 font-mono text-xs sm:text-sm font-medium px-2 sm:px-3 py-1.5 sm:py-1 rounded ${timeLeft < 300 ? 'bg-red-50 text-red-600' : 'bg-slate-100 text-slate-700'}`}>
+                <Clock className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+                <span className="whitespace-nowrap">{formatTime(timeLeft)}</span>
             </div>
-            <Button variant="primary" size="sm" onClick={onFinish}>
-                End Exam
+            <Button variant="primary" size="sm" onClick={onFinish} className="touch-manipulation text-xs sm:text-sm">
+                <span className="hidden sm:inline">End Exam</span>
+                <span className="sm:hidden">End</span>
             </Button>
         </div>
       </header>
@@ -84,10 +88,13 @@ export const ExamView: React.FC<ExamViewProps> = ({ session, onUpdateAnswer, onT
       <div className="flex flex-1 overflow-hidden relative">
         {/* Sidebar Navigation */}
         <aside className={`
-            absolute lg:relative inset-y-0 left-0 w-64 bg-white border-r border-slate-200 transform transition-transform duration-200 ease-in-out z-10
+            absolute lg:relative inset-y-0 left-0 w-64 sm:w-72 bg-white border-r border-slate-200 transform transition-transform duration-200 ease-in-out z-30 shadow-lg lg:shadow-none
             ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         `}>
-            <div className="p-4 h-full overflow-y-auto">
+            {isSidebarOpen && (
+              <div className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-20" onClick={() => setSidebarOpen(false)}></div>
+            )}
+            <div className="p-3 sm:p-4 h-full overflow-y-auto relative z-30 bg-white">
                 <div className="mb-4 px-2">
                     <div className="text-xs font-semibold text-slate-500 uppercase mb-2">Progress</div>
                     <div className="w-full bg-slate-200 rounded-full h-2">
@@ -96,16 +103,16 @@ export const ExamView: React.FC<ExamViewProps> = ({ session, onUpdateAnswer, onT
                     <div className="text-right text-xs text-slate-500 mt-1">{Math.round(progressPercentage)}% Answered</div>
                 </div>
                 
-                <div className="grid grid-cols-5 gap-2">
+                <div className="grid grid-cols-5 sm:grid-cols-5 gap-2">
                     {session.questions.map((q, idx) => {
                         const isAnswered = !!session.answers[q.id];
                         const isCurrent = idx === currentIndex;
                         const isFlagged = session.flags[q.id];
                         
-                        let bgClass = "bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100";
+                        let bgClass = "bg-slate-50 border-slate-200 text-slate-600 active:bg-slate-100";
                         if (isCurrent) bgClass = "ring-2 ring-blue-600 ring-offset-1 bg-white border-blue-200 text-blue-700";
-                        else if (isFlagged) bgClass = "bg-amber-50 border-amber-300 text-amber-700";
-                        else if (isAnswered) bgClass = "bg-blue-50 border-blue-200 text-blue-700";
+                        else if (isFlagged) bgClass = "bg-amber-50 border-amber-300 text-amber-700 active:bg-amber-100";
+                        else if (isAnswered) bgClass = "bg-blue-50 border-blue-200 text-blue-700 active:bg-blue-100";
 
                         return (
                             <button
@@ -114,7 +121,7 @@ export const ExamView: React.FC<ExamViewProps> = ({ session, onUpdateAnswer, onT
                                     setCurrentIndex(idx);
                                     if (window.innerWidth < 1024) setSidebarOpen(false);
                                 }}
-                                className={`h-8 w-full rounded text-xs font-medium border flex items-center justify-center relative ${bgClass}`}
+                                className={`min-h-[44px] w-full rounded text-xs font-medium border flex items-center justify-center relative touch-manipulation ${bgClass}`}
                             >
                                 {idx + 1}
                                 {isFlagged && <div className="absolute top-0 right-0 -mt-1 -mr-1 w-2 h-2 bg-amber-500 rounded-full" />}
@@ -126,24 +133,25 @@ export const ExamView: React.FC<ExamViewProps> = ({ session, onUpdateAnswer, onT
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 overflow-y-auto p-4 md:p-8 bg-gray-50">
+        <main className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-8 bg-gray-50">
             <div className="max-w-3xl mx-auto">
                 {/* Question Card */}
-                <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8 mb-6">
-                    <div className="flex justify-between items-start mb-6">
-                        <span className="inline-block bg-slate-100 text-slate-600 text-xs font-semibold px-2.5 py-0.5 rounded">
+                <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4 sm:p-6 md:p-8 mb-4 sm:mb-6">
+                    <div className="flex flex-col sm:flex-row justify-between items-start gap-3 sm:gap-0 mb-4 sm:mb-6">
+                        <span className="inline-block bg-slate-100 text-slate-600 text-xs font-semibold px-2.5 py-1 rounded truncate max-w-full">
                             {currentQuestion.domain}
                         </span>
                         <button 
                             onClick={() => onToggleFlag(currentQuestion.id)}
-                            className={`flex items-center gap-2 text-sm font-medium transition-colors ${isFlagged ? 'text-amber-600' : 'text-slate-400 hover:text-slate-600'}`}
+                            className={`flex items-center gap-2 text-xs sm:text-sm font-medium transition-colors touch-manipulation p-2 -mr-2 sm:mr-0 rounded active:bg-slate-100 ${isFlagged ? 'text-amber-600' : 'text-slate-400 active:text-slate-600'}`}
                         >
                             <Flag className={isFlagged ? 'fill-current' : ''} size={18} />
-                            {isFlagged ? 'Flagged' : 'Flag for Review'}
+                            <span className="hidden sm:inline">{isFlagged ? 'Flagged' : 'Flag for Review'}</span>
+                            <span className="sm:hidden">{isFlagged ? 'Flagged' : 'Flag'}</span>
                         </button>
                     </div>
 
-                    <h2 className="text-xl md:text-2xl font-semibold text-slate-900 leading-relaxed mb-8">
+                    <h2 className="text-base sm:text-xl md:text-2xl font-semibold text-slate-900 leading-relaxed mb-6 sm:mb-8">
                         {currentQuestion.text}
                     </h2>
 
@@ -171,26 +179,26 @@ export const ExamView: React.FC<ExamViewProps> = ({ session, onUpdateAnswer, onT
                                 <button
                                     key={option.id}
                                     onClick={() => !showResult && onUpdateAnswer(currentQuestion.id, option.id)}
-                                    className={`w-full text-left p-4 rounded-lg border-2 transition-all flex items-center gap-4 group ${wrapperClass}`}
+                                    className={`w-full text-left p-3 sm:p-4 rounded-lg border-2 transition-all flex items-start sm:items-center gap-3 sm:gap-4 group touch-manipulation active:scale-[0.98] min-h-[56px] sm:min-h-0 ${wrapperClass}`}
                                     disabled={isPractice && !!selectedAnswer}
                                 >
                                     <div className={`
-                                        w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shrink-0 transition-colors
+                                        w-8 h-8 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-sm font-bold shrink-0 transition-colors mt-0.5 sm:mt-0
                                         ${isSelected 
                                             ? (isPractice 
                                                 ? (isCorrect ? 'bg-green-500 text-white' : 'bg-red-500 text-white') 
                                                 : 'bg-blue-600 text-white')
-                                            : 'bg-slate-100 text-slate-500 group-hover:bg-slate-200'}
+                                            : 'bg-slate-100 text-slate-500 group-active:bg-slate-200'}
                                     `}>
                                         {option.id}
                                     </div>
-                                    <div className="text-slate-800 font-medium">{option.text}</div>
+                                    <div className="text-sm sm:text-base text-slate-800 font-medium flex-1">{option.text}</div>
                                     
                                     {isPractice && selectedAnswer && isCorrect && (
-                                        <CheckCircle className="ml-auto text-green-500 h-5 w-5" />
+                                        <CheckCircle className="ml-auto text-green-500 h-5 w-5 flex-shrink-0" />
                                     )}
                                     {isPractice && isSelected && !isCorrect && (
-                                        <XCircle className="ml-auto text-red-500 h-5 w-5" />
+                                        <XCircle className="ml-auto text-red-500 h-5 w-5 flex-shrink-0" />
                                     )}
                                 </button>
                             );
@@ -214,13 +222,17 @@ export const ExamView: React.FC<ExamViewProps> = ({ session, onUpdateAnswer, onT
                 )}
                 
                 {/* Navigation Footer */}
-                <div className="flex justify-between mt-8 mb-12">
+                <div className="flex justify-between gap-3 mt-6 sm:mt-8 mb-8 sm:mb-12 sticky bottom-0 bg-gray-50 pt-4 pb-2 -mx-3 sm:-mx-0 px-3 sm:px-0">
                     <Button 
                         variant="outline" 
                         onClick={() => setCurrentIndex(prev => Math.max(0, prev - 1))}
                         disabled={currentIndex === 0}
+                        className="touch-manipulation flex-1 sm:flex-initial min-h-[44px]"
+                        size="md"
                     >
-                        <ChevronLeft className="mr-2 h-4 w-4" /> Previous
+                        <ChevronLeft className="mr-2 h-4 w-4" /> 
+                        <span className="hidden sm:inline">Previous</span>
+                        <span className="sm:hidden">Prev</span>
                     </Button>
                     <Button 
                         variant="primary"
@@ -231,8 +243,11 @@ export const ExamView: React.FC<ExamViewProps> = ({ session, onUpdateAnswer, onT
                                 onFinish();
                             }
                         }}
+                        className="touch-manipulation flex-1 sm:flex-initial min-h-[44px]"
+                        size="md"
                     >
-                        {currentIndex === session.questions.length - 1 ? 'Finish Exam' : 'Next Question'} 
+                        <span className="hidden sm:inline">{currentIndex === session.questions.length - 1 ? 'Finish Exam' : 'Next Question'}</span>
+                        <span className="sm:hidden">{currentIndex === session.questions.length - 1 ? 'Finish' : 'Next'}</span>
                         {currentIndex < session.questions.length - 1 && <ChevronRight className="ml-2 h-4 w-4" />}
                     </Button>
                 </div>
